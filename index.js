@@ -9,6 +9,10 @@ function IgnoreMatcher(str) {
   var rooted = [];
   this.rooted = rooted;
   this.matchers = str.split(/\r?\n|\r/).map(function (line) {
+    // Remove trailing slash or backslash in directory paths
+    if (line[line.length - 1] === '/' || line[line.length - 1] === '\\') {
+      line = line.substring(0, line.length - 1);
+    }
     var negatedLine = line[0] === '!';
     var commentLine = line[0] === '#';
     var rootedLine = line[0] === '/';
